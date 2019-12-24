@@ -1,0 +1,15 @@
+version: "3"
+
+services:
+  hive-metastore-postgresql:
+    image: postgres:10.11-alpine
+    environment:
+      - POSTGRES_DB=metastore
+    ports:
+      - "5432:5432"
+  hive-server:
+    build: .
+    depends_on:
+      - "hive-metastore-postgresql"
+    ports:
+      - "10000:10000"
